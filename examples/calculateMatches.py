@@ -7,7 +7,7 @@ from adalam import AdalamFilter
 class CalculateMatches:
 
     def __init__(self):
-        print("PIG CONSTRUCTOR!!!!!")
+        print('object created')
 
     
     def calculateImages(self, im1, im2):
@@ -30,6 +30,7 @@ class CalculateMatches:
         kp1, desc1 = d.detectAndCompute(im, mask=np.ones(shape=im.shape[:-1] + (1,),
                                                                 dtype=np.uint8))
         pts = np.array([k.pt for k in kp1], dtype=np.float32)
+        # print('the keypoints number is: ', len(pts))
         ors = np.array([k.angle for k in kp1], dtype=np.float32)
         scs = np.array([k.size for k in kp1], dtype=np.float32)
         return pts, ors, scs, desc1, im
@@ -54,6 +55,9 @@ class CalculateMatches:
 
         p1 = [np.int32(k * scale1) for k in k1]
         p2 = [np.int32(k * scale2 + offset) for k in k2]
+
+        print("number of keypoints in the first picture is: ", len(p1))
+        print("number of keypoints in the second picture is: ", len(p2))
 
         for (x1, y1), (x2, y2) in zip(p1, p2):
             cv.line(vis, (x1, y1), (x2, y2), [0, 255, 0], 1)
