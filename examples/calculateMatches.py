@@ -20,8 +20,24 @@ class CalculateMatches:
                                         d1=d1, d2=d2,
                                         s1=s1, s2=s2,
                                         im1shape=im1.shape[:2], im2shape=im2.shape[:2]).cpu().numpy()
+                            
+        k1=k1[matches[:, 0]]
+        k2=k2[matches[:, 1]]
+        F, mask = cv.findFundamentalMat(k1,k2,cv.FM_LMEDS)
+        pts1 = k1[mask.ravel()==1]
+        pts2 = k2[mask.ravel()==1]
+        # print("size of pts1 is: ", len(pts1))
+        file1 = open("Adalam_matched.txt", "w")
+        for (x1, y1), (x2, y2) in zip(pts1, pts2):
+            # print(x1, " ", y1, " ", x2, " ", y2)
+            file1.write(str(x1) + ", " +str(y1) + "\n")
+            # cv.line(vis, (x1, y1), (x2, y2), [0, 255, 0], 1)
+        file1.close()
 
-        self.show_matches(im1, im2, k1=k1[matches[:, 0]], k2=k2[matches[:, 1]])
+        out1 = k1[mask.ravel()==0]
+        out2 = k2[mask.ravel()==0]
+
+        self.show_matches(im1, im2, pts1, pts2, out1, out2)
 
 
     def extract_keypoints(self, impath):
@@ -36,7 +52,7 @@ class CalculateMatches:
         return pts, ors, scs, desc1, im
 
 
-    def show_matches(self, img1, img2, k1, k2, target_dim=800.):
+    def show_matches(self, img1, img2, k1, k2, out1, out2, target_dim=800.):
         h1, w1 = img1.shape[:2]
         h2, w2 = img2.shape[:2]
 
@@ -55,12 +71,22 @@ class CalculateMatches:
 
         p1 = [np.int32(k * scale1) for k in k1]
         p2 = [np.int32(k * scale2 + offset) for k in k2]
+        o1 = [np.int32(out * scale1) for out in out1]
+        o2 = [np.int32(out * scale2 + offset) for out in out2]
 
-        print("number of keypoints in the first picture is: ", len(p1))
-        print("number of keypoints in the second picture is: ", len(p2))
+        print("number of matched keypoints in the first picture is: ", len(p1))
+        print("number of matched keypoints in the second picture is: ", len(p2))
 
+        # file1 = open("Adalam_matched.txt", "w")
         for (x1, y1), (x2, y2) in zip(p1, p2):
+            # print(x1, " ", y1, " ", x2, " ", y2)
+            # file1.write(str(x1) + ", " +str(y1) + "\n")
             cv.line(vis, (x1, y1), (x2, y2), [0, 255, 0], 1)
+        # file1.close()
+
+        for (x1, y1), (x2, y2) in zip(o1, o2):
+
+            cv.line(vis, (x1, y1), (x2, y2), [0, 0, 255], 1)
 
         cv.imshow("AdaLAM example", vis)
         cv.waitKey()
