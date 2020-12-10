@@ -14,6 +14,9 @@ class CalculateMatches:
         k1, o1, s1, d1, im1 = self.extract_keypoints(im1)
         k2, o2, s2, d2, im2 = self.extract_keypoints(im2)
 
+        print("After extracting points, k1 size: ", len(k1))
+        print("After extracting points, k2 size: ", len(k2))
+
         matcher = AdalamFilter()
         matches = matcher.match_and_filter(k1=k1, k2=k2,
                                         o1=o1, o2=o2,

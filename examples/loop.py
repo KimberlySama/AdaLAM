@@ -3,7 +3,8 @@ from calculateMatches import CalculateMatches
 pigAlgorithm = CalculateMatches() # Constructor that does nothing
 
 
-pigAlgorithm.calculateImages("img1_boat.pgm", "img2_boat.pgm")
+# pigAlgorithm.calculateImages("img1_boat.pgm", "img2_boat.pgm")
+pigAlgorithm.calculateImages("img1_wall.ppm", "img2_wall.ppm")
 # pigAlgorithm.calculateImages("im1.jpg", "im2.jpg")
 # pigAlgorithm.calculateImages("roma_1.jpg", "roma_2.jpg")
 # pigAlgorithm.calculateImages("building_1.jpg", "building_2.jpg")
