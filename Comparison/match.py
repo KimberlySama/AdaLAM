@@ -30,7 +30,16 @@ def show_matches(img1, img2, k1, k2, out1, out2, target_dim=800.):
         target_h = int(target_height)
         return (target_w1, target_h), (target_w2, target_h), scale_to_fit, scale_to_fit * scale_to_align, [target_w1, 0]
 
-    target_1, target_2, scale1, scale2, offset = resize_horizontal(h1, w1, h2, w2, target_dim)
+    def resize_vertical(h1, w1, h2, w2, target_width):
+        scale_to_align = float(w1) / w2
+        current_height = h1 + h2 * scale_to_align
+        scale_to_fit = target_width / w1
+        target_h1 = int(h1 * scale_to_fit)
+        target_h2 = int(h2 * scale_to_align * scale_to_fit)
+        target_w = int(target_width)
+        return (target_w, target_h1), (target_w, target_h2), scale_to_fit, scale_to_fit * scale_to_align, [0, target_h1]
+
+    target_1, target_2, scale1, scale2, offset = resize_vertical(h1, w1, h2, w2, target_dim)
 
     im1 = cv.resize(img1, target_1, interpolation=cv.INTER_AREA)
     im2 = cv.resize(img2, target_2, interpolation=cv.INTER_AREA)
@@ -38,20 +47,29 @@ def show_matches(img1, img2, k1, k2, out1, out2, target_dim=800.):
     h1, w1 = target_1[::-1]
     h2, w2 = target_2[::-1]
 
-    vis = np.ones((max(h1, h2), w1 + w2, 3), np.uint8) * 255
+    # vis = np.ones((max(h1, h2), w1 + w2, 3), np.uint8) * 255
+    vis = np.ones((h1+h2, max(w1, w2), 3), np.uint8) * 255
     vis[:h1, :w1] = im1
-    vis[:h2, w1:w1 + w2] = im2
+    vis[h1:h1+h2, :w2] = im2
 
     p1 = [np.int32(k * scale1) for k in k1]
     p2 = [np.int32(k * scale2 + offset) for k in k2]
     o1 = [np.int32(out * scale1) for out in out1]
     o2 = [np.int32(out * scale2 + offset) for out in out2]
 
+    # count = 0
     for (x1, y1), (x2, y2) in zip(p1, p2):
         cv.line(vis, (x1, y1), (x2, y2), [0, 255, 0], 1)
+        # count += 1
+        # if count > 1000:
+        #     break
     
+    # count = 0
     for (x1, y1), (x2, y2) in zip(o1, o2):
         cv.line(vis, (x1, y1), (x2, y2), [0, 0, 255], 1)
+        # count += 1
+        # if count > 300:
+        #     break
 
     cv.imshow("AdaLAM example", vis)
     cv.waitKey()
@@ -76,25 +94,15 @@ if __name__ == '__main__':
 
     k1=k1[matches[:, 0]]
     k2=k2[matches[:, 1]]
-    # print(k1.shape)
-    # print(k2.dtype)
-    # print(k2[0])
-    # print(k2.shape)
-    # F, mask = cv.findFundamentalMat(k1,k2,cv.FM_8POINT)
-    # pts1 = k1[mask.ravel()==1]
-    # pts2 = k2[mask.ravel()==1]
-    # out1 = k1[mask.ravel()==0]
-    # out2 = k2[mask.ravel()==0]
-    # print(pts1.shape)
-    # print(out1.shape)
+
     true_pos, false_pos = find_ground_truth(k1, k2)
     pts1 = k1[true_pos]
     pts2 = k2[true_pos]
     out1 = k1[false_pos]
     out2 = k2[false_pos]
+    
     show_matches(im1, im2, pts1, pts2, out1, out2)
 
-    # show_matches(im1, im2, k1, k2)
     # Save as image and rename
 
 
