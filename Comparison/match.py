@@ -3,6 +3,7 @@ import numpy as np
 import argparse
 import sys
 from adalam import AdalamFilter
+from compare import find_ground_truth
 
 
 def extract_keypoints(impath):
@@ -75,20 +76,22 @@ if __name__ == '__main__':
 
     k1=k1[matches[:, 0]]
     k2=k2[matches[:, 1]]
-    # print(k1.dtype)
-    # print(k1[0])
-    print(k1.shape)
+    # print(k1.shape)
     # print(k2.dtype)
     # print(k2[0])
     # print(k2.shape)
-    F, mask = cv.findFundamentalMat(k1,k2,cv.FM_8POINT)
-    pts1 = k1[mask.ravel()==1]
-    pts2 = k2[mask.ravel()==1]
-    out1 = k1[mask.ravel()==0]
-    out2 = k2[mask.ravel()==0]
-    print(pts1.shape)
-    print(out1.shape)
-
+    # F, mask = cv.findFundamentalMat(k1,k2,cv.FM_8POINT)
+    # pts1 = k1[mask.ravel()==1]
+    # pts2 = k2[mask.ravel()==1]
+    # out1 = k1[mask.ravel()==0]
+    # out2 = k2[mask.ravel()==0]
+    # print(pts1.shape)
+    # print(out1.shape)
+    true_pos, false_pos = find_ground_truth(k1, k2)
+    pts1 = k1[true_pos]
+    pts2 = k2[true_pos]
+    out1 = k1[false_pos]
+    out2 = k2[false_pos]
     show_matches(im1, im2, pts1, pts2, out1, out2)
 
     # show_matches(im1, im2, k1, k2)
