@@ -24,15 +24,22 @@ class CalculateMatches:
         k1=k1[matches[:, 0]]
         k2=k2[matches[:, 1]]
         F, mask = cv.findFundamentalMat(k1,k2,cv.FM_LMEDS)
+        print("\n")
+        print("Fundamental Matrix is: ")
+        print(F)
+        print("\n")
         pts1 = k1[mask.ravel()==1]
         pts2 = k2[mask.ravel()==1]
         # print("size of pts1 is: ", len(pts1))
-        file1 = open("Adalam_matched.txt", "w")
-        for (x1, y1), (x2, y2) in zip(pts1, pts2):
+        file1 = open("Adalam_matched_Left.txt", "w")
+        file2 = open("Adalam_matched_Right.txt", "w")
+        for (x1, y1), (x2, y2) in zip(k1, k2):
             # print(x1, " ", y1, " ", x2, " ", y2)
             file1.write(str(x1) + ", " +str(y1) + "\n")
-            # cv.line(vis, (x1, y1), (x2, y2), [0, 255, 0], 1)
+            file2.write(str(x2) + ", " +str(y2) + "\n")
         file1.close()
+        file2.close()
+        
 
         out1 = k1[mask.ravel()==0]
         out2 = k2[mask.ravel()==0]
@@ -79,10 +86,7 @@ class CalculateMatches:
 
         # file1 = open("Adalam_matched.txt", "w")
         for (x1, y1), (x2, y2) in zip(p1, p2):
-            # print(x1, " ", y1, " ", x2, " ", y2)
-            # file1.write(str(x1) + ", " +str(y1) + "\n")
             cv.line(vis, (x1, y1), (x2, y2), [0, 255, 0], 1)
-        # file1.close()
 
         for (x1, y1), (x2, y2) in zip(o1, o2):
 
