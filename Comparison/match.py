@@ -61,15 +61,15 @@ def show_matches(img1, img2, k1, k2, out1, out2, target_dim=800.):
     for (x1, y1), (x2, y2) in zip(p1, p2):
         cv.line(vis, (x1, y1), (x2, y2), [0, 255, 0], 1)
         # count += 1
-        # if count > 1000:
+        # if count > 500:
         #     break
     
     # count = 0
     for (x1, y1), (x2, y2) in zip(o1, o2):
         cv.line(vis, (x1, y1), (x2, y2), [0, 0, 255], 1)
-        # count += 1
-        # if count > 300:
-        #     break
+    #     count += 1
+    #     if count > 300:
+    #         break
 
     cv.imshow("AdaLAM example", vis)
     cv.waitKey()
@@ -77,15 +77,17 @@ def show_matches(img1, img2, k1, k2, out1, out2, target_dim=800.):
 
 if __name__ == '__main__':
     p = argparse.ArgumentParser()
-    p.add_argument("--im1", required=False)
-    p.add_argument("--im2", required=False)
+    p.add_argument("--name", required=True)
+    p.add_argument("--im1", required=True)
+    p.add_argument("--im2", required=True)
     opt = p.parse_args()
+    path1 = "GT_pics/"+opt.name+"/imgs/img"+opt.im1+".ppm"
+    path2 = "GT_pics/"+opt.name+"/imgs/img"+opt.im2+".ppm"
+    gt_path = "ground_truth/"+opt.name+"/"+opt.name+"_"+opt.im1+"_"+opt.im2+"_TP.txt"
     
     # results = function(im1, im2)
-    img1Path = "GT_pics/light/imgs/img1.ppm"
-    img2Path = "GT_pics/light/imgs/img6.ppm"
-    k1, o1, s1, d1, im1 = extract_keypoints(img1Path) # (opt.im1)
-    k2, o2, s2, d2, im2 = extract_keypoints(img2Path) # (opt.im2)
+    k1, o1, s1, d1, im1 = extract_keypoints(path1) # (opt.im1)
+    k2, o2, s2, d2, im2 = extract_keypoints(path2) # (opt.im2)
 
     matcher = AdalamFilter()
     matches = matcher.match_and_filter(k1=k1, k2=k2,
@@ -97,7 +99,7 @@ if __name__ == '__main__':
     k1=k1[matches[:, 0]]
     k2=k2[matches[:, 1]]
 
-    true_pos, false_pos = find_ground_truth(k1, k2)
+    true_pos, false_pos = find_ground_truth(k1, k2, gt_path)
     pts1 = k1[true_pos]
     pts2 = k2[true_pos]
     out1 = k1[false_pos]

@@ -15,11 +15,10 @@ def read_data(file_path):
     # return data
     return left, right
 
-def find_ground_truth(a1, a2):
+def find_ground_truth(a1, a2, path):
     # t1 = read_data("Left_TP.txt")
     # t2 = read_data("Right_TP.txt")
-    dataPath = "ground_truth/light/light_1_6_TP.txt"
-    t1, t2 = read_data(dataPath)
+    t1, t2 = read_data(path)
 
     print(t1.shape, t2.shape)
 
@@ -33,26 +32,21 @@ def find_ground_truth(a1, a2):
         p1 = np.reshape(np.append(a1[i], 1), (3,1))
         p2 = np.reshape(np.append(a2[i], 1), (3,1))
 
-        # l = F.dot(p1)
-        # error = abs(p2.T.dot(l)/math.sqrt(l[1]**2+l[2]**2))
-        # if error < 0.001:
-        #     true_pos.append(i)
-        # else:
-        #     false_pos.append(i)
-        # print(l)
-        # print(error)
-
-        # print(p2.T.dot(F.dot(p1)))
-        if abs(p2.T.dot(F.dot(p1))) < 0.01:
+        l = F.dot(p1)
+        error = abs(p2.T.dot(l))/math.sqrt(l[0]**2+l[1]**2)
+        if error < 2:
             true_pos.append(i)
         else:
             false_pos.append(i)
+        # print(l)
+        # print(math.sqrt(l[1]**2+l[2]**2))
+        print(error)
 
-    f = open("RESULTS.txt", "a")
-    f.write(dataPath + "\n")
-    f.write(str(len(true_pos)) + " true positive out of " + str(len(a1)) + "\n")
-    f.write(str(len(false_pos)) + " false positive out of " + str(len(a1)) + "\n")
-    f.write("\n \n")
+        # print(p2.T.dot(F.dot(p1)))
+        # if abs(p2.T.dot(F.dot(p1))) < 0.01:
+        #     true_pos.append(i)
+        # else:
+        #     false_pos.append(i)
 
     print(len(true_pos), "true positive out of", len(a1))
     print(len(false_pos), "false positive out of", len(a1))
