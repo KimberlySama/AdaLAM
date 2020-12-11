@@ -40,7 +40,7 @@ def find_ground_truth(a1, a2, path):
             false_pos.append(i)
         # print(l)
         # print(math.sqrt(l[1]**2+l[2]**2))
-        print(error)
+        # print(error)
 
         # print(p2.T.dot(F.dot(p1)))
         # if abs(p2.T.dot(F.dot(p1))) < 0.01:

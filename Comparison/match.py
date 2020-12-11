@@ -78,12 +78,16 @@ def show_matches(img1, img2, k1, k2, out1, out2, target_dim=800.):
 if __name__ == '__main__':
     p = argparse.ArgumentParser()
     p.add_argument("--name", required=True)
-    p.add_argument("--im1", required=True)
     p.add_argument("--im2", required=True)
     opt = p.parse_args()
-    path1 = "GT_pics/"+opt.name+"/imgs/img"+opt.im1+".ppm"
-    path2 = "GT_pics/"+opt.name+"/imgs/img"+opt.im2+".ppm"
-    gt_path = "ground_truth/"+opt.name+"/"+opt.name+"_"+opt.im1+"_"+opt.im2+"_TP.txt"
+    if opt.name == "boat":
+        ext = "pgm"
+    else:
+        ext = "ppm"
+    path1 = "GT_pics/"+opt.name+"/imgs/img1."+ext
+    path2 = "GT_pics/"+opt.name+"/imgs/img"+opt.im2+"."+ext
+    gt_path = "ground_truth/"+opt.name+"/"+opt.name+"_1_"+opt.im2+"_TP.txt"
+    print(path1, path2)
     
     # results = function(im1, im2)
     k1, o1, s1, d1, im1 = extract_keypoints(path1) # (opt.im1)
