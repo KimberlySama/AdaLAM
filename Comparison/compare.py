@@ -18,7 +18,8 @@ def read_data(file_path):
 def find_ground_truth(a1, a2):
     # t1 = read_data("Left_TP.txt")
     # t2 = read_data("Right_TP.txt")
-    t1, t2 = read_data("ground_truth/wall/wall_1_2_TP.txt")
+    dataPath = "ground_truth/light/light_1_6_TP.txt"
+    t1, t2 = read_data(dataPath)
 
     print(t1.shape, t2.shape)
 
@@ -46,6 +47,12 @@ def find_ground_truth(a1, a2):
             true_pos.append(i)
         else:
             false_pos.append(i)
+
+    f = open("RESULTS.txt", "a")
+    f.write(dataPath + "\n")
+    f.write(str(len(true_pos)) + " true positive out of " + str(len(a1)) + "\n")
+    f.write(str(len(false_pos)) + " false positive out of " + str(len(a1)) + "\n")
+    f.write("\n \n")
 
     print(len(true_pos), "true positive out of", len(a1))
     print(len(false_pos), "false positive out of", len(a1))

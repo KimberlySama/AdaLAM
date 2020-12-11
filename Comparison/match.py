@@ -77,13 +77,15 @@ def show_matches(img1, img2, k1, k2, out1, out2, target_dim=800.):
 
 if __name__ == '__main__':
     p = argparse.ArgumentParser()
-    p.add_argument("--im1", required=True)
-    p.add_argument("--im2", required=True)
+    p.add_argument("--im1", required=False)
+    p.add_argument("--im2", required=False)
     opt = p.parse_args()
     
     # results = function(im1, im2)
-    k1, o1, s1, d1, im1 = extract_keypoints("GT_pics/wall/imgs/img1.ppm") # (opt.im1)
-    k2, o2, s2, d2, im2 = extract_keypoints("GT_pics/wall/imgs/img2.ppm") # (opt.im2)
+    img1Path = "GT_pics/light/imgs/img1.ppm"
+    img2Path = "GT_pics/light/imgs/img6.ppm"
+    k1, o1, s1, d1, im1 = extract_keypoints(img1Path) # (opt.im1)
+    k2, o2, s2, d2, im2 = extract_keypoints(img2Path) # (opt.im2)
 
     matcher = AdalamFilter()
     matches = matcher.match_and_filter(k1=k1, k2=k2,
