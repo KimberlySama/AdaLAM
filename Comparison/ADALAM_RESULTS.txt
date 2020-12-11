@@ -1,0 +1,165 @@
+ground_truth/bark/bark_1_2_TP.txt
+1616 true positive out of 1627
+11 false positive out of 1627
+
+ 
+ground_truth/bark/bark_1_3_TP.txt
+1023 true positive out of 1040
+17 false positive out of 1040
+
+ 
+ground_truth/bark/bark_1_4_TP.txt
+781 true positive out of 814
+33 false positive out of 814
+
+ 
+ground_truth/bark/bark_1_5_TP.txt
+543 true positive out of 582
+39 false positive out of 582
+
+ 
+ground_truth/bark/bark_1_6_TP.txt
+225 true positive out of 304
+79 false positive out of 304
+
+ 
+ground_truth/bikes/bikes_1_2_TP.txt
+2051 true positive out of 2053
+2 false positive out of 2053
+
+ 
+ground_truth/bikes/bikes_1_3_TP.txt
+1633 true positive out of 1647
+14 false positive out of 1647
+
+ 
+ground_truth/bikes/bikes_1_4_TP.txt
+847 true positive out of 880
+33 false positive out of 880
+
+ 
+ground_truth/boat/boat_1_2_TP.txt
+2521 true positive out of 2527
+6 false positive out of 2527
+
+ 
+ground_truth/boat/boat_1_3_TP.txt
+1768 true positive out of 1769
+1 false positive out of 1769
+
+ 
+ground_truth/boat/boat_1_4_TP.txt
+785 true positive out of 786
+1 false positive out of 786
+
+ 
+ground_truth/boat/boat_1_5_TP.txt
+532 true positive out of 542
+10 false positive out of 542
+
+ 
+ground_truth/boat/boat_1_6_TP.txt
+155 true positive out of 256
+101 false positive out of 256
+
+ 
+ground_truth/graffiti/graffiti_1_2_TP.txt
+1628 true positive out of 1665
+37 false positive out of 1665
+
+ 
+ground_truth/graffiti/graffiti_1_3_TP.txt
+1028 true positive out of 1167
+139 false positive out of 1167
+
+ 
+ground_truth/graffiti/graffiti_1_4_TP.txt
+283 true positive out of 413
+130 false positive out of 413
+
+ 
+ground_truth/graffiti/graffiti_1_5_TP.txt
+15 true positive out of 32
+17 false positive out of 32
+
+ 
+ground_truth/graffiti/graffiti_1_6_TP.txt
+0 true positive out of 0
+0 false positive out of 0
+
+ 
+ground_truth/JPEG/JPEG_1_2_TP.txt
+2638 true positive out of 2638
+0 false positive out of 2638
+
+ 
+ground_truth/JPEG/JPEG_1_3_TP.txt
+2398 true positive out of 2398
+0 false positive out of 2398
+
+ 
+ground_truth/JPEG/JPEG_1_4_TP.txt
+1843 true positive out of 1931
+88 false positive out of 1931
+
+ 
+ground_truth/JPEG/JPEG_1_5_TP.txt
+985 true positive out of 1096
+111 false positive out of 1096
+
+ 
+ground_truth/JPEG/JPEG_1_6_TP.txt
+387 true positive out of 527
+140 false positive out of 527
+
+ 
+ground_truth/light/light_1_2_TP.txt
+2405 true positive out of 2406
+1 false positive out of 2406
+
+ 
+ground_truth/light/light_1_3_TP.txt
+2323 true positive out of 2372
+49 false positive out of 2372
+
+ 
+ground_truth/light/light_1_4_TP.txt
+2007 true positive out of 2183
+176 false positive out of 2183
+
+ 
+ground_truth/light/light_1_5_TP.txt
+1665 true positive out of 2055
+390 false positive out of 2055
+
+ 
+ground_truth/light/light_1_6_TP.txt
+834 true positive out of 1747
+913 false positive out of 1747
+
+ 
+ground_truth/wall/wall_1_2_TP.txt
+4226 true positive out of 4227
+1 false positive out of 4227
+
+ 
+ground_truth/wall/wall_1_3_TP.txt
+3691 true positive out of 3707
+16 false positive out of 3707
+
+ 
+ground_truth/wall/wall_1_4_TP.txt
+2557 true positive out of 2584
+27 false positive out of 2584
+
+ 
+ground_truth/wall/wall_1_5_TP.txt
+1190 true positive out of 1218
+28 false positive out of 1218
+
+ 
+ground_truth/wall/wall_1_6_TP.txt
+141 true positive out of 148
+7 false positive out of 148
+
+ 

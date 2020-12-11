@@ -4,7 +4,7 @@ import argparse
 import sys
 from adalam import AdalamFilter
 from compare import find_ground_truth
-
+import time
 
 def extract_keypoints(impath):
     im = cv.imread(impath, cv.IMREAD_COLOR)
@@ -93,16 +93,19 @@ if __name__ == '__main__':
     k1, o1, s1, d1, im1 = extract_keypoints(path1) # (opt.im1)
     k2, o2, s2, d2, im2 = extract_keypoints(path2) # (opt.im2)
 
+    start = time.time()
     matcher = AdalamFilter()
     matches = matcher.match_and_filter(k1=k1, k2=k2,
                                        o1=o1, o2=o2,
                                        d1=d1, d2=d2,
                                        s1=s1, s2=s2,
                                        im1shape=im1.shape[:2], im2shape=im2.shape[:2]).cpu().numpy()
+    end = time.time()
+    print('GMS takes', end-start, 'seconds')
 
     k1=k1[matches[:, 0]]
     k2=k2[matches[:, 1]]
-
+    # print(k1)
     true_pos, false_pos = find_ground_truth(k1, k2, gt_path)
     pts1 = k1[true_pos]
     pts2 = k2[true_pos]
@@ -112,6 +115,8 @@ if __name__ == '__main__':
     show_matches(im1, im2, pts1, pts2, out1, out2)
 
     # Save as image and rename
+
+    exit()
 
 
 
