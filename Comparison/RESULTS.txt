@@ -57,7 +57,8 @@ ground_truth/bikes/Bikes_1_2_TP.txt
 
  
 ground_truth/bikes/Bikes_1_3_TP.txt
-949 true positive out of 1645
+949 true 
+positive out of 1645
 696 false positive out of 1645
 
  

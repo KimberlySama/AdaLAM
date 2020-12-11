@@ -47,6 +47,12 @@ def find_ground_truth(a1, a2, path):
         #     true_pos.append(i)
         # else:
         #     false_pos.append(i)
+    
+    f = open("NEW_RESULTS.txt", "a")
+    f.write(path + "\n")
+    f.write(str(len(true_pos)) + " true positive out of " + str(len(a1)) + "\n")
+    f.write(str(len(false_pos)) + " false positive out of " + str(len(a1)) + "\n")
+    f.write("\n \n")
 
     print(len(true_pos), "true positive out of", len(a1))
     print(len(false_pos), "false positive out of", len(a1))
