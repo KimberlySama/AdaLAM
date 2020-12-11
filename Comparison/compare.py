@@ -5,25 +5,25 @@ import math
 def read_data(file_path):
     f = open(file_path, 'r')
     data = []
-    # left = right = []
     for line in f:
         line_list = line.split(', ')
         data.append([float(coord) for coord in line_list])
-        # left.append([float(coord) for coord in line_list[:1]])
-        # right.append([float(coord) for coord in line_list[2:]])
     f.close()
-    return np.array(data) # np.array(left), np.array(right) 
+    data = np.array(data)
+    left = data[:,0:2]
+    right = data[:,2:4]
+    # return data
+    return left, right
 
 def find_ground_truth(a1, a2):
-    t1 = read_data("Left_TP.txt")
-    t2 = read_data("Right_TP.txt")
-    # t1, t2 = read_data("TP.txt")
+    # t1 = read_data("Left_TP.txt")
+    # t2 = read_data("Right_TP.txt")
+    t1, t2 = read_data("ground_truth/wall/wall_1_2_TP.txt")
 
-    print(t1[:,1].shape)
+    print(t1.shape, t2.shape)
 
-    F, mask = cv.findFundamentalMat(t1,t2,cv.FM_LMEDS)
-    # print(F)
-    # print(len(t1), len(t2))
+    F, mask = cv.findFundamentalMat(t1,t2,cv.FM_8POINT)
+    print(F)
 
     true_pos = []
     false_pos = []
@@ -34,10 +34,11 @@ def find_ground_truth(a1, a2):
 
         # l = F.dot(p1)
         # error = abs(p2.T.dot(l)/math.sqrt(l[1]**2+l[2]**2))
-        # if error < 1:
+        # if error < 0.001:
         #     true_pos.append(i)
         # else:
         #     false_pos.append(i)
+        # print(l)
         # print(error)
 
         # print(p2.T.dot(F.dot(p1)))
